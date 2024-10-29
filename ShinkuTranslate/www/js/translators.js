@@ -1,14 +1,14 @@
-(function() {
+(function () {
   var evalAsJson, get, wrap;
 
-  evalAsJson = function(json) {
+  evalAsJson = function (json) {
     var fn;
     fn = new Function("return " + json);
     return fn();
   };
 
-  get = function(options, callback, func) {
-    return http.request(options, function(res, err) {
+  get = function (options, callback, func) {
+    return http.request(options, function (res, err) {
       var result;
       if (err) {
         return callback(err);
@@ -23,13 +23,13 @@
     });
   };
 
-  wrap = function(fn) {
-    return function(src, callback, ex) {
+  wrap = function (fn) {
+    return function (src, callback, ex) {
       var fixedCallback, fixedSrc, q;
       q = /(.*?)([「『（][\s\S]*[」』）])\s*$/.exec(src);
       if (q) {
         fixedSrc = q[2].substr(1, q[2].length - 2);
-        fixedCallback = function(res) {
+        fixedCallback = function (res) {
           res = q[2].charAt(0) + res + q[2].charAt(q[2].length - 1);
           return callback(res.replace('<unk>', ' '));
         };
@@ -41,14 +41,14 @@
   };
 
   registerTranslators({
-    "Google": wrap(function(src, callback) {
+    "Google": wrap(function (src, callback) {
       var url;
       src = encodeURIComponent(src);
       url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ja&tl=en&dt=t&q=" + src;
-      return get(url, callback, function(res) {
+      return get(url, callback, function (res) {
         var s, ss;
         res = evalAsJson(res);
-        ss = (function() {
+        ss = (function () {
           var _i, _len, _ref, _results;
           _ref = res[0];
           _results = [];
@@ -61,15 +61,15 @@
         return ss.join(' ').replace(/\btsu\b/ig, '');
       });
     }),
-	"Sugoi": wrap(function(src, callback) {
-      var requestBody = JSON.stringify({t: src});
+    "Sugoi": wrap(function (src, callback) {
+      var requestBody = JSON.stringify({ t: src });
       var url = "http://127.0.0.1:6969/translate";
 
       try {
         var xhr = new XMLHttpRequest();
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
           if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
               callback(JSON.parse(xhr.responseText));
@@ -85,7 +85,7 @@
         callback("Error occurred: " + error.message);
       }
     }),
-    "Deepseek": wrap(function(src, callback) {
+    "Deepseek": wrap(function (src, callback) {
       var url = "https://api.deepseek.com/v1/chat/completions";
       var requestBody = JSON.stringify({
         model: "deepseek-chat",
@@ -105,8 +105,8 @@
         var xhr = new XMLHttpRequest();
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
-		xhr.setRequestHeader("Authorization", "Bearer DEEPSEEK_API_KEY_HERE");
-        xhr.onreadystatechange = function() {
+        xhr.setRequestHeader("Authorization", "Bearer DEEPSEEK_API_KEY_HERE");
+        xhr.onreadystatechange = function () {
           if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
               var response = JSON.parse(xhr.responseText);
@@ -123,7 +123,7 @@
         callback("Error occurred: " + error.message);
       }
     })
-	
+
 
   });
 
