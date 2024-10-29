@@ -1,0 +1,110 @@
+body {
+  background-image: url("images/option_bg.png");
+  overflow: hidden;
+  font: 14px Microsoft Sans Serif;
+  line-height: 150%;
+}
+label,
+button {
+  font: 14px Microsoft Sans Serif;
+}
+.content {
+  position: relative;
+}
+table.tabsview {
+  border-collapse: collapse;
+  width: 100%;
+}
+.tabsview td {
+  vertical-align: top;
+}
+.tabsview .tabs {
+  width: 150px;
+}
+.separator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 152px;
+  border-right: 1px solid rgb(70, 73, 100);
+}
+.tabsview .view {
+  padding: 5px 20px 5px 15px;
+}
+ul.menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+ul.menu > li {
+  padding: 2px 10px;
+  cursor: pointer;
+}
+.menu > li.active {
+  background-color: #6e3333;
+  color: #dde2e3;
+}
+.menu > li:hover {
+  color: #c4934a;
+}
+.tab {
+  display: none;
+}
+.tab.active {
+  display: block;
+}
+.groupbox {
+  display: inline-block;
+  margin: 10px 0;
+  padding: 10px;
+  position: relative;
+  border: 0;
+  vertical-align: top;
+}
+.groupbox > .caption {
+  position: absolute;
+  top: -12px;
+  padding: 0 5px;
+}
+.groupbox label {
+  display: block;
+  line-height: 200%;
+}
+.buttons {
+  position: absolute;
+  z-index: 1;
+  bottom: 10px;
+  right: 16px;
+}
+.buttons button {
+  width: 80px;
+}
+.opgroup {
+  margin-bottom: 10px;
+}
+.opgroup .btn {
+  display: block;
+  text-align: left;
+  width: 100%;
+  padding: 5px 0;
+}
+.btn {
+  background-color: transparent;
+  border: 0 none;
+  border-radius: 4px;
+}
+.btn.enabled:hover {
+  border-color: #6e3333;
+  color: #6e3333;
+}
+.opgroup input[type=text] {
+  display: block;
+  width: 100%;
+}
+.btn.pressed {
+  color: #308897;
+}
+select {
+  width: 100%;
+}

@@ -1,0 +1,29 @@
+﻿body.startup {
+  background-image: url("images/main_bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.btn {
+  background-color: transparent;
+  border: 0;
+  height: 50px;
+  color: #424242;
+  font-weight: 600;
+}
+.btn:hover {
+  color: #cf3636;
+}
+.icon_btn {
+  width: 32px;
+  height: 32px;
+  font-size: 150%;
+  padding: 0;
+  color: #424242;
+}
+.icon_btn:hover {
+  color: #cf3636;
+}
+.buttonpanel {
+  white-space: nowrap;
+  overflow: hidden;
+}
