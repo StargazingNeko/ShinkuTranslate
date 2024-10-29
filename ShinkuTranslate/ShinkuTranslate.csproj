@@ -55,6 +55,19 @@
     <ApplicationIcon>shinku.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="data\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sugoi\models\sugoi-fairseq-4\put.japaneseModel.and.sp_model.here.txt" />
+    <Content Include="sugoi\pys\templates\favicon.ico" />
+    <Content Include="sugoi\pys\templates\index.html" />
+    <Content Include="sugoi\Python\python_folder_from_yojet.txt" />
+    <Content Include="www\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sugoi\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -281,6 +294,8 @@
     <EmbeddedResource Include="src\forms\UserNameForm.resx">
       <DependentUpon>UserNameForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="data\JMdict.xml.url" />
+    <None Include="data\Jmnedict.xml.url" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -290,12 +305,18 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="sugoi\pys\download.py" />
+    <None Include="sugoi\pys\yojetServer.py" />
     <None Include="www\res\font\fontello.eot" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="data\Conjugations.txt" />
+    <Content Include="data\JMdict.xml" />
+    <Content Include="data\JMnedict.xml" />
+    <Content Include="data\names.txt" />
     <Content Include="shinku.ico" />
     <None Include="src\shinku_small.ico" />
     <Content Include="www\js\jquery-ui.js" />
@@ -338,6 +359,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

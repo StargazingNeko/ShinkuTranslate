@@ -45,7 +45,14 @@ namespace ShinkuTranslate {
                     settings.Settings.app.save();
                 } catch { }
             }), null, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1));
-            StartPythonScript();
+            try
+            {
+                StartPythonScript();
+            }
+            catch (Exception ex)
+            {
+                Logger.logException(ex); 
+            }
             Application.Run(new MainForm() { WindowState = FormWindowState.Minimized });
         }
         static void StartPythonScript()

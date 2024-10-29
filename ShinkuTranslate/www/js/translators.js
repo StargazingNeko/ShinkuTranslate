@@ -63,7 +63,7 @@
     }),
 	"Sugoi": wrap(function(src, callback) {
       var requestBody = JSON.stringify({t: src});
-      var url = "http://127.0.0.1:8080/translate";
+      var url = "http://127.0.0.1:6969/translate";
 
       try {
         var xhr = new XMLHttpRequest();
@@ -84,45 +84,7 @@
         console.error('Error:', error.message);
         callback("Error occurred: " + error.message);
       }
-    }),
-    "Ollama": wrap(function(src, callback) {
-  var prompt = "<<METADATA>>\n[character] Name: Kanade Taiga (奏 大雅) | Gender: Male\n[character] Name: Kuro (クロ) | Gender: Male\n<<TRANSLATE>>\n<<JAPANESE>>\n" + src + "\n<<ENGLISH>>";
-  var requestBody = JSON.stringify({
-    model: "vntl",
-    prompt: prompt,
-    "options": {
-      "temperature": 0
-    },
-    stream: false
-  });
-  var url = "http://localhost:11434/api/generate";
-
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-Type", "application/json");
-
-  xhr.onload = function() {
-    if (xhr.status === 200) {
-      try {
-        var response = JSON.parse(xhr.responseText);
-        callback(response.response);
-      } catch (error) {
-        console.error('Error:', error.message);
-        callback("Error occurred: " + error.message);
-      }
-    } else {
-      console.error('Error:', xhr.statusText);
-      callback("Error occurred: " + xhr.statusText);
-    }
-  };
-
-  xhr.onerror = function() {
-    console.error('Error:', xhr.statusText);
-    callback("Error occurred: " + xhr.statusText);
-  };
-
-  xhr.send(requestBody);
-})
+    })
 	
 
   });
