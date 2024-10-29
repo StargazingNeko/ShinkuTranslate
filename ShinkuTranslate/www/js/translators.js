@@ -84,6 +84,44 @@
         console.error('Error:', error.message);
         callback("Error occurred: " + error.message);
       }
+    }),
+    "Deepseek": wrap(function(src, callback) {
+      var url = "https://api.deepseek.com/v1/chat/completions";
+      var requestBody = JSON.stringify({
+        model: "deepseek-chat",
+        messages: [
+          {
+            role: "system",
+            content: "Translate everything to English, no explanation, no whatever, just output the English translation"
+          },
+          {
+            role: "user",
+            content: src
+          }
+        ]
+      });
+
+      try {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.setRequestHeader("Authorization", "Bearer DEEPSEEK_API_KEY_HERE");
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              var response = JSON.parse(xhr.responseText);
+              callback(response.choices[0].message.content.trim());
+            } else {
+              console.error('Error:', xhr.statusText);
+              callback("Error occurred: " + xhr.statusText);
+            }
+          }
+        };
+        xhr.send(requestBody);
+      } catch (error) {
+        console.error('Error:', error.message);
+        callback("Error occurred: " + error.message);
+      }
     })
 	
 
