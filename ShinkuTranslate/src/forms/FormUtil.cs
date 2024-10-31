@@ -15,16 +15,20 @@ namespace ShinkuTranslate.forms {
             public bool initializeCompleted = false;
         }
 
-        internal static void restoreLocation(Form form) {
+        internal static void restoreLocation(Form form)
+        {
             Rectangle loc;
             getFormData(form).initializeCompleted = true;
             form.VisibleChanged += form_VisibleChanged;
-            if (Settings.app.getProperty("location_" + form.Name, out loc)) {
-                if (Screen.GetWorkingArea(loc).IntersectsWith(loc)) {
+            if (Settings.app.getProperty("location_" + form.Name, out loc))
+            {
+                if (Screen.GetWorkingArea(loc).IntersectsWith(loc))
+                {
                     form.DesktopBounds = loc;
                     return;
                 }
             }
+
             form.StartPosition = FormStartPosition.CenterScreen;
         }
 

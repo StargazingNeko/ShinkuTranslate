@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 
 namespace ShinkuTranslate.settings {
     class SessionSettings {
@@ -103,8 +104,8 @@ namespace ShinkuTranslate.settings {
                 try {
                     if (File.Exists(fileName)) {
                         string json = File.ReadAllText(fileName);
-                        var serializer = Utils.getJsonSerializer();
-                        IDictionary data = serializer.DeserializeObject(json) as IDictionary;
+                        //var serializer = Utils.getJsonSerializer();
+                        IDictionary data = JsonSerializer.Deserialize<IDictionary>(json);
                         userNames.Clear();
                         IList namesJson = data["names"] as IList;
                         foreach (IDictionary nameData in namesJson.Cast<IDictionary>()) {

@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 using System.Windows.Forms;
 using System.IO;
-using System.Web.Script.Serialization;
+using System.Text.Json;
 using System.Diagnostics;
 using System.Threading;
 using System.Configuration;
@@ -26,10 +24,9 @@ namespace ShinkuTranslate.misc {
             return new Uri("file://" + Path.GetFullPath(Path.Combine(getRootPath(), "www", page)));
         }
 
-        private static ThreadLocal<JavaScriptSerializer> js = new ThreadLocal<JavaScriptSerializer>(() => new JavaScriptSerializer());
-
-        public static string toJson(object data) {
-            return js.Value.Serialize(data);
+        public static string toJson(object data)
+        {
+            return JsonSerializer.Serialize(data);
         }
 
         public static int startProcess(string exeName) {
@@ -107,10 +104,6 @@ namespace ShinkuTranslate.misc {
             Process res = Process.Start(pi);
             res.WaitForInputIdle(5000);
             return res.Id;
-        }
-
-        internal static JavaScriptSerializer getJsonSerializer() {
-            return js.Value;
         }
 
         private static string appPath;

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Web.Script.Serialization;
+using System.Text.Json;
 
 using ShinkuTranslate.settings;
 using ShinkuTranslate.misc;
 using System.Collections;
+using System.Windows.Forms;
+using static System.Windows.Forms.DataFormats;
 
 namespace ShinkuTranslate.translation.edict.inflect {
     class Inflector {
@@ -20,29 +21,36 @@ namespace ShinkuTranslate.translation.edict.inflect {
             try {
                 conjugations = new Dictionary<string, ConjugationsJson>();
                 knownPOS = new HashSet<string>();
-                JavaScriptSerializer json = new JavaScriptSerializer();
                 string jsonRaw = File.ReadAllText(Settings.app.ConjugationsPath);
-                IList data = (IList)json.DeserializeObject(jsonRaw);
-                foreach (var it in data) {
-                    IDictionary conjJson = (IDictionary)it;
+                IList<IDictionary<string, object>> json = JsonSerializer.Deserialize<IList<IDictionary<string, object>>>(jsonRaw);
+                foreach (IDictionary<string, object> conjJson in json) {
+                    
                     List<ConjugationsVariantJson> tenses = new List<ConjugationsVariantJson>();
-                    var jsonTenses = (IList)conjJson["Tenses"];
-                    foreach (var form in jsonTenses) {
-                        IDictionary formJson = (IDictionary)form;
-                        var conjVar = new ConjugationsVariantJson {
-                            Formal = (bool)formJson["Formal"],
-                            Negative = (bool)formJson["Negative"],
-                            Suffix = (string)formJson["Suffix"],
-                            Tense = (string)formJson["Tense"],
-                            NextType = (string)formJson["Next Type"] ?? ((string)formJson["Tense"] == "Te-form" ? "te-form" : null),
-                            Ignore = formJson["Ignore"] != null
+
+                    var jsonTenses = ((JsonElement)conjJson["Tenses"]).Deserialize<IList<IDictionary<string, dynamic>>>();
+                    foreach (IDictionary<string, dynamic> form in jsonTenses) {
+                        IDictionary<string, object> formJson = form;
+                        ConjugationsVariantJson conjVar = new ConjugationsVariantJson
+                        {
+                            Formal = ((JsonElement)formJson["Formal"]).Deserialize<bool>(),
+                            Negative = ((JsonElement)formJson["Negative"]).Deserialize<bool>(),
+                            Suffix = ((JsonElement)formJson["Suffix"]).Deserialize<string>(),
+                            Tense = ((JsonElement)formJson["Tense"]).Deserialize<string>(),
+
+                            NextType = formJson.ContainsKey("Next Type")
+                                ? ((JsonElement)formJson["Next Type"]).Deserialize<string>()
+                                : (((JsonElement)formJson["Tense"]).Deserialize<string>() == "Te-form" ? "te-form" : null),
+
+                            Ignore = formJson.ContainsKey("Ignore")
+                                ? ((JsonElement)formJson["Ignore"]).Deserialize<bool>()
+                                : false
                         };
                         //conjVar.Ignore = conjVar.Ignore || (conjVar.Tense == "Stem" && conjVar.Suffix == "");
                         tenses.Add(conjVar);
                     }
                     var conj = new ConjugationsJson {
-                        Name = (string)conjJson["Name"],
-                        PartOfSpeech = (string)conjJson["Part of Speech"],
+                        Name = ((JsonElement)conjJson["Name"]).Deserialize<string>(),
+                        PartOfSpeech = ((JsonElement)conjJson["Part of Speech"]).Deserialize<string>(),
                         Tenses = tenses
                     };
                     conj.addBaseFormSuffix(tenses[0].Suffix);

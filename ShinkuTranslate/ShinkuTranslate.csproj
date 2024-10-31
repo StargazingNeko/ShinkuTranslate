@@ -1,18 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6D822424-D844-4FFC-B2F0-C36AA6B039F9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ShinkuTranslate</RootNamespace>
-    <AssemblyName>ShinkuTranslate</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -28,28 +17,17 @@
     <ApplicationVersion>1.0.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
     <OutputPath>.\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
     <OutputPath>dist\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>shinku.ico</ApplicationIcon>
@@ -68,249 +46,17 @@
     <Content Include="sugoi\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="System" />
-    <Reference Include="System.configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Management" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
+  
   <ItemGroup>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="src\forms\AboutForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\forms\AboutForm.Designer.cs">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\forms\AtlasNotFoundForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\forms\AtlasNotFoundForm.Designer.cs">
-      <DependentUpon>AtlasNotFoundForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\forms\BackgroundForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\forms\BackgroundForm.Designer.cs">
-      <DependentUpon>BackgroundForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\forms\ClipboardMonitor.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="src\forms\ClipboardMonitor.Designer.cs">
-      <DependentUpon>ClipboardMonitor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\forms\ContextLogForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\forms\ContextLogForm.Designer.cs">
-      <DependentUpon>ContextLogForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\forms\ExtraTranslatorsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\forms\ExtraTranslatorsForm.Designer.cs">
-      <DependentUpon>ExtraTranslatorsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\forms\NamesForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\forms\NamesForm.Designer.cs">
-      <DependentUpon>NamesForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\forms\OptionsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\forms\OptionsForm.Designer.cs">
-      <DependentUpon>OptionsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\forms\POFilesForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\forms\POFilesForm.Designer.cs">
-      <DependentUpon>POFilesForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\forms\UpgradeIEForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\forms\UpgradeIEForm.Designer.cs">
-      <DependentUpon>UpgradeIEForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\forms\FormUtil.cs" />
-    <Compile Include="src\forms\HintForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\forms\HintForm.Designer.cs">
-      <DependentUpon>HintForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\forms\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\forms\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\forms\NonJapaneseLocaleForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\forms\NonJapaneseLocaleForm.Designer.cs">
-      <DependentUpon>NonJapaneseLocaleForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\forms\TranslationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\forms\TranslationForm.Designer.cs">
-      <DependentUpon>TranslationForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\forms\UserHookForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\forms\UserHookForm.Designer.cs">
-      <DependentUpon>UserHookForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\forms\UserNameForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\forms\UserNameForm.Designer.cs">
-      <DependentUpon>UserNameForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\misc\BrowserInterop.cs" />
-    <Compile Include="src\misc\HiraganaConvertorCyrillic.cs" />
-    <Compile Include="src\misc\HiraganaConvertor.cs" />
-    <Compile Include="src\misc\IDictionaryExt.cs" />
-    <Compile Include="src\misc\Logger.cs" />
-    <Compile Include="src\misc\MyException.cs" />
-    <Compile Include="src\misc\NonJapaneseLocaleWatDo.cs" />
-    <Compile Include="src\misc\TextUtils.cs" />
-    <Compile Include="src\misc\Utils.cs" />
-    <Compile Include="src\misc\WebBrowserExt.cs" />
-    <Compile Include="src\misc\Winapi.cs" />
-    <Compile Include="src\misc\WithInitialization.cs" />
-    <Compile Include="src\Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\settings\NameDictLoading.cs" />
-    <Compile Include="src\settings\OkuriganaType.cs" />
-    <Compile Include="src\settings\SessionSettings.cs" />
-    <Compile Include="src\settings\Settings.cs" />
-    <Compile Include="src\settings\TranslationDisplay.cs" />
-    <Compile Include="src\texthook\ContextFactory.cs" />
-    <Compile Include="src\texthook\TextHookInteropCompat.cs" />
-    <Compile Include="src\texthook\DefaultContextFactory.cs" />
-    <Compile Include="src\texthook\ext\MyContext.cs" />
-    <Compile Include="src\texthook\ext\MyContextFactory.cs" />
-    <Compile Include="src\texthook\HookParam.cs" />
-    <Compile Include="src\texthook\TextHook.cs" />
-    <Compile Include="src\texthook\TextHookContext.cs" />
-    <Compile Include="src\texthook\TextHookInterop.cs" />
-    <Compile Include="src\texthook\UserHook.cs" />
-    <Compile Include="src\translation\atlas\Atlas.cs" />
-    <Compile Include="src\translation\atlas\AtlasInterop.cs" />
-    <Compile Include="src\translation\edict\DictionaryKey.cs" />
-    <Compile Include="src\translation\edict\EdictEntryBuilder.cs" />
-    <Compile Include="src\translation\edict\DictionaryKeyBuilder.cs" />
-    <Compile Include="src\translation\edict\DictionarySense.cs" />
-    <Compile Include="src\translation\edict\EdictEntry.cs" />
-    <Compile Include="src\translation\edict\EdictMatchType.cs" />
-    <Compile Include="src\translation\edict\EdictMatchWithType.cs" />
-    <Compile Include="src\translation\edict\inflect\ConjugationsJson.cs" />
-    <Compile Include="src\translation\edict\inflect\ConjugationsVariantJson.cs" />
-    <Compile Include="src\translation\edict\inflect\InflectionTrie.cs" />
-    <Compile Include="src\translation\edict\ParseOptions.cs" />
-    <Compile Include="src\translation\edict\parseresult\ComplexParseResult.cs" />
-    <Compile Include="src\translation\edict\Edict.cs" />
-    <Compile Include="src\translation\edict\EdictDictionary.cs" />
-    <Compile Include="src\translation\edict\EdictMatch.cs" />
-    <Compile Include="src\translation\edict\inflect\InflectionState.cs" />
-    <Compile Include="src\translation\edict\inflect\Inflector.cs" />
-    <Compile Include="src\translation\edict\parseresult\ParseResult.cs" />
-    <Compile Include="src\translation\edict\parseresult\UnparsedParseResult.cs" />
-    <Compile Include="src\translation\edict\parseresult\WordParseResult.cs" />
-    <Compile Include="src\translation\edict\RatedEntry.cs" />
-    <Compile Include="src\translation\po\PoManager.cs" />
-    <Compile Include="src\translation\po\PoTranslation.cs" />
-    <Compile Include="src\translation\ReplacementScript.cs" />
-    <Compile Include="src\translation\TranslationResult.cs" />
-    <Compile Include="src\translation\TranslationService.cs" />
-    <EmbeddedResource Include="src\forms\AboutForm.resx">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\forms\AtlasNotFoundForm.resx">
-      <DependentUpon>AtlasNotFoundForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\forms\BackgroundForm.resx">
-      <DependentUpon>BackgroundForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\forms\ContextLogForm.resx">
-      <DependentUpon>ContextLogForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\forms\ExtraTranslatorsForm.resx">
-      <DependentUpon>ExtraTranslatorsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\forms\NamesForm.resx">
-      <DependentUpon>NamesForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\forms\OptionsForm.resx">
-      <DependentUpon>OptionsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\forms\POFilesForm.resx">
-      <DependentUpon>POFilesForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\forms\UpgradeIEForm.resx">
-      <DependentUpon>UpgradeIEForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\forms\HintForm.resx">
-      <DependentUpon>HintForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\forms\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\forms\NonJapaneseLocaleForm.resx">
-      <DependentUpon>NonJapaneseLocaleForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\forms\TranslationForm.resx">
-      <DependentUpon>TranslationForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\forms\UserHookForm.resx">
-      <DependentUpon>UserHookForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\forms\UserNameForm.resx">
-      <DependentUpon>UserNameForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="data\JMdict.xml.url" />
-    <None Include="data\Jmnedict.xml.url" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="sugoi\pys\download.py" />
-    <None Include="sugoi\pys\yojetServer.py" />
-    <None Include="www\res\font\fontello.eot" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
+    <Compile Update="src\forms\ClipboardMonitor.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="data\Conjugations.txt" />
@@ -318,7 +64,6 @@
     <Content Include="data\JMnedict.xml" />
     <Content Include="data\names.txt" />
     <Content Include="shinku.ico" />
-    <None Include="src\shinku_small.ico" />
     <Content Include="www\js\jquery-ui.js" />
     <Content Include="www\js\jquery.js" />
     <Content Include="www\js\underscore.js" />
@@ -359,13 +104,18 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Management" Version="8.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
 </Project>

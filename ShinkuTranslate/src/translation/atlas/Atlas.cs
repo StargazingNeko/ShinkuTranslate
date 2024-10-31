@@ -30,14 +30,20 @@ namespace ShinkuTranslate.translation.atlas {
         private IntPtr buf1;
         private IntPtr buf2;
         private byte[] envStr;
-        private readonly Encoding encoding932 = Encoding.GetEncoding(932);
+        private Encoding encoding932;
 
-        protected override void doInitialize() {
+        protected override void doInitialize()
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            encoding932 = Encoding.GetEncoding(932);
             interop = new AtlasInterop();
-            try {
+            try
+            {
                 interop.initialize();
                 createEngine();
-            } catch {
+            }
+            catch
+            {
                 interop.close();
                 throw;
             }

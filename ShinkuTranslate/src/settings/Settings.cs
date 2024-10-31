@@ -8,6 +8,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 
 namespace ShinkuTranslate.settings {
     class Settings {
@@ -38,7 +39,7 @@ namespace ShinkuTranslate.settings {
 
         public readonly string JMdictPath = Path.Combine(Utils.getRootPath(), "data/JMdict.xml");
         public readonly string JMnedictPath = Path.Combine(Utils.getRootPath(), "data/JMnedict.xml");
-        public readonly string ConjugationsPath = Path.Combine(Utils.getRootPath(), "data/Conjugations.txt");
+        public readonly string ConjugationsPath = Path.Combine(Utils.getRootPath(), "data/Conjugations.json");
         public readonly string ReplacementScriptPath = Path.Combine(Utils.getRootPath(), "data/names.txt");
         public readonly string SaveWordPath = Path.Combine(Utils.getRootPath(), "words.txt");
 
@@ -62,8 +63,16 @@ namespace ShinkuTranslate.settings {
         public bool getProperty<T>(string prop, out T value) {
             try {
                 object res = Properties.Settings.Default[prop];
-                value = (T)res;
-                return true;
+                if (res != null)
+                {
+                    value = (T)res;
+                    return true;
+                }
+                else
+                {
+                    value = default(T);
+                    return false;
+                }
             } catch (NullReferenceException) {
                 value = default(T);
                 return false;
@@ -83,19 +92,19 @@ namespace ShinkuTranslate.settings {
         public void save() {
             lock (this) {
                 if (selectedPages != null && selectedPagesDirty) {
-                    Properties.Settings.Default.selectedPages = Utils.getJsonSerializer().Serialize(selectedPages);
+                    Properties.Settings.Default.selectedPages = JsonSerializer.Serialize(selectedPages);
                     selectedPagesDirty = false;
                 }
                 if (bannedWords != null && isBannedWordsDirty) {
-                    Properties.Settings.Default.bannedWords = Utils.getJsonSerializer().Serialize(bannedWords.Keys);
-                    Properties.Settings.Default.bannedWordsKana = Utils.getJsonSerializer().Serialize(bannedWordsKana.Keys);
+                    Properties.Settings.Default.bannedWords = JsonSerializer.Serialize(bannedWords.Keys);
+                    Properties.Settings.Default.bannedWordsKana = JsonSerializer.Serialize(bannedWordsKana.Keys);
                     isBannedWordsDirty = false;
                 }
                 if (selectedReadings != null && isSelectedReadingsDirty) {
-                    Properties.Settings.Default.selectedReadings = Utils.getJsonSerializer().Serialize(selectedReadings);
+                    Properties.Settings.Default.selectedReadings = JsonSerializer.Serialize(selectedReadings);
                     isSelectedReadingsDirty = false;
                 }
-                Properties.Settings.Default.selectedTranslators = Utils.getJsonSerializer().Serialize(selectedTranslators);
+                Properties.Settings.Default.selectedTranslators = JsonSerializer.Serialize(selectedTranslators);
                 Properties.Settings.Default.Save();
                 SessionSettings.saveAll();
             }
@@ -104,7 +113,7 @@ namespace ShinkuTranslate.settings {
         private void initSelectedPages() {
             string selectedPagesJson = Properties.Settings.Default.selectedPages;
             try {
-                selectedPages = Utils.getJsonSerializer().Deserialize<ConcurrentDictionary<string, int>>(selectedPagesJson);
+                selectedPages = JsonSerializer.Deserialize<ConcurrentDictionary<string, int>>(selectedPagesJson);
                 if (selectedPages == null) selectedPages = new ConcurrentDictionary<string, int>();
             } catch {
                 selectedPages = new ConcurrentDictionary<string, int>();
@@ -115,7 +124,7 @@ namespace ShinkuTranslate.settings {
         private void initSelectedReadings() {
             string selectedReadingsJson = Properties.Settings.Default.selectedReadings;
             try {
-                selectedReadings = Utils.getJsonSerializer().Deserialize<ConcurrentDictionary<string, string>>(selectedReadingsJson);
+                selectedReadings = JsonSerializer.Deserialize<ConcurrentDictionary<string, string>>(selectedReadingsJson);
                 if (selectedReadings == null) selectedReadings = new ConcurrentDictionary<string, string>();
             } catch {
                 selectedReadings = new ConcurrentDictionary<string, string>();
@@ -126,7 +135,7 @@ namespace ShinkuTranslate.settings {
             string bannedWordsJson = Properties.Settings.Default.bannedWords;
             List<string> words;
             try {
-                words = Utils.getJsonSerializer().Deserialize<List<string>>(bannedWordsJson);
+                words = JsonSerializer.Deserialize<List<string>>(bannedWordsJson);
                 if (words == null) words = new List<string>();
             } catch {
                 words = new List<string>();
@@ -134,7 +143,7 @@ namespace ShinkuTranslate.settings {
             bannedWords = new ConcurrentDictionary<string,bool>(words.ToDictionary((w) => w, (w) => true));
             string bannedWordsKanaJson = Properties.Settings.Default.bannedWordsKana;
             try {
-                words = Utils.getJsonSerializer().Deserialize<List<string>>(bannedWordsKanaJson);
+                words = JsonSerializer.Deserialize<List<string>>(bannedWordsKanaJson);
                 if (words == null) words = new List<string>();
             } catch {
                 words = new List<string>();
@@ -145,7 +154,7 @@ namespace ShinkuTranslate.settings {
         private void initSelectedTranslators() {
             string selectedTranslatorsJson = Properties.Settings.Default.selectedTranslators;
             try {
-                selectedTranslators = Utils.getJsonSerializer().Deserialize<List<string>>(selectedTranslatorsJson);
+                selectedTranslators = JsonSerializer.Deserialize<List<string>>(selectedTranslatorsJson);
             } catch {
                 selectedTranslators = null;
             }
